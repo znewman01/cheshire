@@ -6,7 +6,7 @@
 var express = require('express')
   , routes = require('./routes')
   , install = require('./routes/install')
-  , create = require('./routes/create')
+  , endpoint = require('./routes/endpoint')
   , http = require('http')
   , path = require('path');
 
@@ -32,7 +32,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get(/^\/install\/(\w+)$/, install.install(app.get('host'), app.get('port')));
-app.post('/scripts/:name/create', create.create);
+app.post('/scripts/:name', endpoint.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
