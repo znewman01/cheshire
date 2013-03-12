@@ -1,0 +1,7 @@
+| #!/bin/sh
+| echo "Uninstalling Cheshire from endpoint #{host}:#{port}/scripts/name"
+| stty -echo
+| read -p "Password: " PASSWORD; echo
+| stty echo
+| curl -s -X DELETE -d password=$PASSWORD #{host}:#{port}/scripts/#{name}
+| (crontab -l | grep -v "* * * * * curl -s #{host}:#{port}/scripts/#{name} | sh") | crontab -
