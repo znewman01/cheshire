@@ -75,3 +75,24 @@ exports.update = function(req, res) {
     });
   });
 }
+
+exports.delete = function(req, res) {
+  var name = req.params.name;
+  var password = req.body.password;
+  mongo.open(function(err, client) {
+    var db = client.db(mongo_db);
+    db.collection('endpoints').findOne({ name: name }, function(err, result){
+      if (result.password != password) {
+        client.close();
+        res.send(401, 'Incorrect password for endpoint.\n');
+      } else {
+        db.collection('endpoints').remove(
+          { name: name },
+          function(err, result) {
+            client.close();
+            res.send(200, 'Endpoint successfully removed.\n');
+        });
+      }
+    });
+  });
+}

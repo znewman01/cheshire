@@ -36,6 +36,7 @@ app.get('/uninstall/:name', install.uninstall(app.get('host'), app.get('port')))
 app.get('/scripts/:name', endpoint.read);
 app.post('/scripts/:name', endpoint.create);
 app.put('/scripts/:name', endpoint.update);
+app.delete('/scripts/:name', endpoint.delete);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
