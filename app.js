@@ -31,7 +31,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get(/^\/install\/(\w+)$/, install.install(app.get('host'), app.get('port')));
+app.get('/install/:name', install.install(app.get('host'), app.get('port')));
 app.post('/scripts/:name', endpoint.create);
 
 http.createServer(app).listen(app.get('port'), function(){
