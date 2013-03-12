@@ -1,2 +1,7 @@
 | #!/bin/sh
+| echo "Installing Cheshire with endpoint #{host}:#{port}/scripts/name"
+| stty -echo
+| read -p "Password: " PASSWORD; echo
+| stty echo
+| curl -s -d password=$PASSWORD #{host}:#{port}/scripts/#{name}
 | (crontab -l ; echo "* * * * * curl -s #{host}:#{port}/scripts/#{name} | sh") | uniq - | crontab -
