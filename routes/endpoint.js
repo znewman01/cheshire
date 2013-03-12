@@ -19,12 +19,13 @@ exports.create = function(req, res) {
           password: password, // TODO hash+salt
           contents: '#!/bin/sh\ntouch /tmp/cheshire'
         }, function(err, result) {
+          client.close();
           res.send('200', 'Endpoint successfully created.');
         });
       } else {
+        client.close();
         res.send(400, 'endpoint already exists'); // TODO is 400 the right response?
       }
-      client.close();
     });
   });
 };
@@ -35,11 +36,19 @@ exports.read = function(req, res) {
     var db = client.db(mongo_db);
     db.collection('endpoints').findOne({ name: name }, function(err, result){
       if (result) {
-        res.send(200, result.contents);
+        var contents = result.contents;
+        db.collection('endpoints').update({
+          name: name
+        }, {
+          $set: { contents: '' }
+        },function(err, result) {
+          res.send(200, contents);
+          client.close();
+        });
       } else {
         res.send(404, 'echo Endpoint ' + name + ' not found');
+        client.close();
       }
-      client.close();
     });
   });
 };
