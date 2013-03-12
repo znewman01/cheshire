@@ -12,7 +12,7 @@ exports.install = function(host, port) {
     var name = req.params[0];
     mongo.open(function(err, client) {
       var db = client.db(mongo_db);
-      db.collection('coll').count({ 'name': name }, function(err, found){
+      db.collection('endpoints').count({ 'name': name }, function(err, found){
         if (!found) {
           res.render('install', { host: host, port: port, name: name });
         } else {
