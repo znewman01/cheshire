@@ -28,3 +28,18 @@ exports.create = function(req, res) {
     });
   });
 };
+
+exports.read = function(req, res) {
+  var name = req.params.name;
+  mongo.open(function(err, client) {
+    var db = client.db(mongo_db);
+    db.collection('endpoints').findOne({ name: name }, function(err, result){
+      if (result) {
+        res.send(200, result.contents);
+      } else {
+        res.send(404, 'echo Endpoint ' + name + ' not found');
+      }
+      client.close();
+    });
+  });
+};
