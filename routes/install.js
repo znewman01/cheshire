@@ -23,3 +23,20 @@ exports.install = function(host, port) {
     });
   };
 };
+
+exports.uninstall = function(host, port) {
+  return function(req, res){
+    var name = req.params.name;
+    mongo.open(function(err, client) {
+      var db = client.db(mongo_db);
+      db.collection('endpoints').count({ name: name }, function(err, found){
+        if (found) {
+          res.render('uninstall', { host: host, port: port, name: name });
+        } else {
+          res.send(404, 'Endpoint not found.\n');
+        }
+        client.close();
+      });
+    });
+  };
+};

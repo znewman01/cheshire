@@ -32,6 +32,7 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/install/:name', install.install(app.get('host'), app.get('port')));
+app.get('/uninstall/:name', install.uninstall(app.get('host'), app.get('port')));
 app.get('/scripts/:name', endpoint.read);
 app.post('/scripts/:name', endpoint.create);
 app.put('/scripts/:name', endpoint.update);

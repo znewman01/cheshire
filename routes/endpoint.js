@@ -20,11 +20,11 @@ exports.create = function(req, res) {
           contents: '#!/bin/sh\ntouch /tmp/cheshire'
         }, function(err, result) {
           client.close();
-          res.send('200', 'Endpoint successfully created.');
+          res.send(200, 'Endpoint successfully created.\n');
         });
       } else {
         client.close();
-        res.send(400, 'endpoint already exists'); // TODO is 400 the right response?
+        res.send(302, 'Endpoint ' + name + ' already exists.\n');
       }
     });
   });
@@ -46,7 +46,7 @@ exports.read = function(req, res) {
           client.close();
         });
       } else {
-        res.send(404, 'echo Endpoint ' + name + ' not found');
+        res.send(404, 'Endpoint ' + name + ' not found\n');
         client.close();
       }
     });
@@ -62,14 +62,14 @@ exports.update = function(req, res) {
     db.collection('endpoints').findOne({ name: name }, function(err, result){
       if (result.password != password) {
         client.close();
-        res.send(403, 'Incorrect password for endpoint');
+        res.send(401, 'Incorrect password for endpoint.\n');
       } else {
         db.collection('endpoints').update(
           { name: name },
           { $set: { contents: contents } },
           function(err, result){
             client.close();
-            res.send(200, 'okay');
+            res.send(200, 'Endpoint successfully updated.\n');
         });
       }
     });
