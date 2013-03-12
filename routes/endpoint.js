@@ -43,3 +43,26 @@ exports.read = function(req, res) {
     });
   });
 };
+
+exports.update = function(req, res) {
+  var name = req.params.name;
+  var password = req.body.password;
+  var contents = req.body.contents;
+  mongo.open(function(err, client) {
+    var db = client.db(mongo_db);
+    db.collection('endpoints').findOne({ name: name }, function(err, result){
+      if (result.password != password) {
+        client.close();
+        res.send(403, 'Incorrect password for endpoint');
+      } else {
+        db.collection('endpoints').update(
+          { name: name },
+          { $set: { contents: contents } },
+          function(err, result){
+            client.close();
+            res.send(200, 'okay');
+        });
+      }
+    });
+  });
+}

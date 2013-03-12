@@ -34,6 +34,7 @@ app.get('/', routes.index);
 app.get('/install/:name', install.install(app.get('host'), app.get('port')));
 app.get('/scripts/:name', endpoint.read);
 app.post('/scripts/:name', endpoint.create);
+app.put('/scripts/:name', endpoint.update);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
