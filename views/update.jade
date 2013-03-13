@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  p#error= error
+  form(action="/update",method="post")
+    p
+      label Endpoint Name: 
+      input(type="text",name="name")
+    p
+      label Endpoint Password: 
+      input(type="password",name="password")
+    p
+      label Scriptlet: 
+      textarea(name="scriptlet",rows=4,cols=80)
+    p
+      input(type="submit",value="Submit")

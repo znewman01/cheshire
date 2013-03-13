@@ -5,6 +5,7 @@
 
 var express = require('express')
   , routes = require('./routes')
+  , web = require('./routes/web')
   , install = require('./routes/install')
   , endpoint = require('./routes/endpoint')
   , http = require('http')
@@ -31,6 +32,8 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index(app.get('host'), app.get('port')));
+app.get('/update', web.update_form);
+app.post('/update', web.update);
 app.get('/install/:name', install.install(app.get('host'), app.get('port')));
 app.get('/uninstall/:name', install.uninstall(app.get('host'), app.get('port')));
 app.get('/scripts/:name', endpoint.read);
