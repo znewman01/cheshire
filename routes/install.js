@@ -2,23 +2,20 @@
  * GET install script
  */
 
-var db = require('../db');
-
-var mongo = db.mongo;
-var mongo_db = db.mongo_db;
+var mongo = require('mongodb').MongoClient;
+var mongo_uri = process.env.MONGO_URI;
 
 exports.install = function(host, port) {
   return function(req, res){
     var name = req.params.name;
-    mongo.open(function(err, client) {
-      var db = client.db(mongo_db);
+    mongo.connect(mongo_uri, function(err, db) {
       db.collection('endpoints').count({ name: name }, function(err, found){
         if (!found) {
           res.render('install', { host: host, port: port, name: name });
         } else {
           res.render('taken', { name: name });
         }
-        client.close();
+        db.close();
       });
     });
   };
@@ -27,15 +24,14 @@ exports.install = function(host, port) {
 exports.uninstall = function(host, port) {
   return function(req, res){
     var name = req.params.name;
-    mongo.open(function(err, client) {
-      var db = client.db(mongo_db);
+    mongo.connect(mongo_uri, function(err, db) {
       db.collection('endpoints').count({ name: name }, function(err, found){
         if (found) {
           res.render('uninstall', { host: host, port: port, name: name });
         } else {
           res.send(404, 'Endpoint not found.\n');
         }
-        client.close();
+        db.close();
       });
     });
   };
