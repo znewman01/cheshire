@@ -3,6 +3,7 @@
  */
 
 var db = require('../db')
+var bcrypt = require('bcrypt');
 
 var mongo = db.mongo;
 var mongo_db = db.mongo_db;
@@ -14,13 +15,15 @@ exports.create = function(req, res) {
     db.collection('endpoints').count({ name: name }, function(err, found){
       if (!found) {
         var password = req.body.password;
-        db.collection('endpoints').insert({
-          name: name,
-          password: password, // TODO hash+salt
-          contents: '#!/bin/sh\ntouch /tmp/cheshire'
-        }, function(err, result) {
-          client.close();
-          res.send(200, 'Endpoint successfully created.\n');
+        bcrypt.hash(password, 10, function(err, hash){
+          db.collection('endpoints').insert({
+            name: name,
+            password: hash,
+            contents: '#!/bin/sh\ntouch /tmp/cheshire'
+          }, function(err, result) {
+            client.close();
+            res.send(200, 'Endpoint successfully created.\n');
+          });
         });
       } else {
         client.close();
@@ -60,18 +63,20 @@ exports.update = function(req, res) {
   mongo.open(function(err, client) {
     var db = client.db(mongo_db);
     db.collection('endpoints').findOne({ name: name }, function(err, result){
-      if (result.password != password) {
-        client.close();
-        res.send(401, 'Incorrect password for endpoint.\n');
-      } else {
-        db.collection('endpoints').update(
-          { name: name },
-          { $set: { contents: contents } },
-          function(err, result){
-            client.close();
-            res.send(200, 'Endpoint successfully updated.\n');
-        });
-      }
+      bcrypt.compare(password, result.password, function(err, match) {
+        if (match) {
+          db.collection('endpoints').update(
+            { name: name },
+            { $set: { contents: contents } },
+            function(err, result){
+              client.close();
+              res.send(200, 'Endpoint successfully updated.\n');
+          });
+        } else {
+          client.close();
+          res.send(401, 'Incorrect password for endpoint.\n');
+        }
+      });
     });
   });
 }
@@ -82,17 +87,19 @@ exports.delete = function(req, res) {
   mongo.open(function(err, client) {
     var db = client.db(mongo_db);
     db.collection('endpoints').findOne({ name: name }, function(err, result){
-      if (result.password != password) {
-        client.close();
-        res.send(401, 'Incorrect password for endpoint.\n');
-      } else {
-        db.collection('endpoints').remove(
-          { name: name },
-          function(err, result) {
-            client.close();
-            res.send(200, 'Endpoint successfully removed.\n');
-        });
-      }
+      bcrypt.compare(password, result.password, function(err, match) {
+        if (match) {
+          db.collection('endpoints').remove(
+            { name: name },
+            function(err, result) {
+              client.close();
+              res.send(200, 'Endpoint successfully removed.\n');
+          });
+        } else {
+          client.close();
+          res.send(401, 'Incorrect password for endpoint.\n');
+        }
+      });
     });
   });
 }
