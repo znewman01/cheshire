@@ -14,3 +14,25 @@ block content
       textarea(name="scriptlet",rows=4,cols=80)
     p
       button(type="submit") Submit
+  h2 Suggestions
+  p For a Mac:
+  ul
+    li: pre say Hello There # make them hear voices
+    li: pre defaults write com.apple.dock largesize -int 512
+     | killall Dock # make their dock huge
+    li: pre diskutil eject disk1 # eject some CDs
+    li: pre echo "Hello There" | pbcopy # change their clipboard contents
+    li: pre open -a chrome http://www.youtube.com/watch?v=eh7lp9umG2I
+     | # play a nice video for them
+    li: pre osascript -e "set Volume 10" # Crank the volume
+    li Thanks to 
+     a(href="http//www.aeturnalus.com/") Robert Ying
+     |  for this: You'll have to write it yourself, but the idea is to install
+     | another cron job that every hour, on the hour, speaks the time. Similar
+     | to a built-in OS X capability, but impossible to turn off if they don't
+     | know where it's coming from.
+  p For Linux:
+  ul
+    li: pre DISPLAY=:0 chromium http://www.youtube.com/watch?v=eh7lp9umG2I
+     | # Don't think that Linux users get to escape He-Man
+     | # DISPLAY=:0 is necessary for anything that involves X
