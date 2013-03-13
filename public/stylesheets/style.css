@@ -1,8 +1,64 @@
 body {
-  padding: 50px;
+  margin: 0px;
+  padding: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #FFFF00;
+  background: #dc0c7a; /* Old browsers */
+
+  background: -moz-linear-gradient(top,  #dc0c7a 1%, #ff6cff 100%); /* FF3.6+ */
+
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#dc0c7a), color-stop(100%,#ff6cff)); /* Chrome,Safari4+ */
+
+  background: -webkit-linear-gradient(top,  #dc0c7a 1%,#ff6cff 100%); /* Chrome10+,Safari5.1+ */
+
+  background: -o-linear-gradient(top,  #dc0c7a 1%,#ff6cff 100%); /* Opera 11.10+ */
+
+  background: -ms-linear-gradient(top,  #dc0c7a 1%,#ff6cff 100%); /* IE10+ */
+
+  background: linear-gradient(to bottom,  #dc0c7a 1%,#ff6cff 100%); /* W3C */
+
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dc0c7a', endColorstr='#ff6cff',GradientType=0 ); /* IE6-9 */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #86DCFF;
 }
 
 a {
-  color: #00B7FF;
+  color: #FF6CFF;
 }
+
+a:visited {
+  color: #DC0C7A;
+}
+
+hr {
+  border: 0;
+  color: #DC0C7A;
+  background: #DC0C7A;
+  height: 5px
+}
+
+pre {
+  background: #FF6CFF;
+  //background: #FFFF00;
+  border: 2px;
+  border-color: #000;
+  display: block;
+  padding: 0.5em 1em;
+  box-shadow: 3px 3px 4px #000;
+  margin: 1em 3em;
+  font-family: "Consolas","Monaco","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
+}
+
+#main {
+  margin: 0% 20% 0% 20%;
+  padding: 1em 3em;
+  background: #FFFFFD;
+  box-shadow: 3px 3px 4px #000000;
+}
+
+.header {
+  color: #DC0C7A;
+}
+
