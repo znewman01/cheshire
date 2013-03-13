@@ -29,10 +29,10 @@ hr {
 pre {
   background: #FF6CFF;
   border: 2px;
-  border-color: #000;
+  border-color: #101;
   display: block;
   padding: 0.5em 1em;
-  box-shadow: 3px 3px 4px #000;
+  box-shadow: 3px 3px 4px #101;
   margin: 1em 3em;
   font-family: "Consolas","Monaco","Bitstream Vera Sans Mono","Courier New",Courier,monospace;
 }
@@ -41,4 +41,30 @@ pre {
   border: 1px solid #DC0C7A;
   border-radius: 15px;
   padding: 0em 1em;
+}
+
+label {
+  float: left;
+  width: 140px;
+  text-align: right;
+  font-weight: bold;
+  display: block;
+  padding: 4px 10px;
+}
+
+button {
+  display: block;
+  margin-left: 160px;
+  text-align: right;
+  background: #DC0C7A;
+  padding: 5px 1em;
+  border-radius: 5px;
+  border: 1px solid #101;
+  font-weight: bold;
+}
+
+input, textarea {
+  //border-radius: 5px;
+  border: 1px solid #101;
+  padding: 4px;
 }
