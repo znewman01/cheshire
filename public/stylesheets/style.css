@@ -7,10 +7,16 @@ body {
 
 a {
   color: #00B7FF;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  text-decoration: underline;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: #DC0C7A;
+  text-decoration: none;
 }
 
 hr {
