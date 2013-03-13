@@ -30,7 +30,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
+app.get('/', routes.index(app.get('host'), app.get('port')));
 app.get('/install/:name', install.install(app.get('host'), app.get('port')));
 app.get('/uninstall/:name', install.uninstall(app.get('host'), app.get('port')));
 app.get('/scripts/:name', endpoint.read);
