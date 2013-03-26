@@ -27,10 +27,9 @@ block content
     li: pre osascript -e "set Volume 10" # Crank the volume
     li Thanks to 
      a(href="http://www.aeturnalus.com/") Robert Ying
-     |  for this: You'll have to write it yourself, but the idea is to install
-     | another cron job that every hour, on the hour, speaks the time. Similar
-     | to a built-in OS X capability, but impossible to turn off if they don't
-     | know where it's coming from.
+     |  for this:
+     pre (crontab -l ; echo "0 * * * * say 'it is now $(date +%I), oh clock'") \
+       | | uniq - | crontab -
   p For Linux:
   ul
     li: pre DISPLAY=:0 xdg-open http://www.youtube.com/watch?v=eh7lp9umG2I
