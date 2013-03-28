@@ -22,13 +22,13 @@ block content
      | killall Dock # make their dock huge
     li: pre diskutil eject disk1 # eject some CDs
     li: pre echo "Hello There" | pbcopy # change their clipboard contents
-    li: pre open -a chrome http://www.youtube.com/watch?v=eh7lp9umG2I
+    li: pre open "http://www.youtube.com/watch?v=eh7lp9umG2I"
      | # play a nice video for them
     li: pre osascript -e "set Volume 10" # Crank the volume
     li Thanks to 
      a(href="http://www.aeturnalus.com/") Robert Ying
      |  for this:
-     pre (crontab -l ; echo "0 * * * * say 'it is now $(date +%I), oh clock'") \
+     pre (crontab -l ; echo "0 * * * * say 'it is now \$(date +%I), oh clock'") \
        | | uniq - | crontab -
   p For Linux:
   ul
